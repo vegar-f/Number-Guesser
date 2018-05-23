@@ -12,28 +12,9 @@ namespace NumberGuesser
         // Entry point method
         static void Main(string[] args)
         {
-            //Set app vars
-            string appname = "Number Guesser";
-            string appVersion = "1.0.0";
-            string appAuthor = "Vegar Fredriksen";
+            GetAppInfo(); //run get appinfo function to get info
 
-            //Change text color
-            Console.ForegroundColor = ConsoleColor.Green;
-
-
-            //Write out app info
-            Console.WriteLine("{0}: Version {1} by {2}", appname, appVersion, appAuthor);
-
-            //Reset text color
-            Console.ResetColor();
-
-            //ask users name
-            Console.WriteLine("What is your name?");
-
-            //get user input
-            string inputName = Console.ReadLine();
-
-            Console.WriteLine("Hello {0}, Let's play a game...", inputName);
+            GreetUser(); // ask for users name and greet
 
             while (true)
             {
@@ -63,16 +44,8 @@ namespace NumberGuesser
                     //validate input as number
                     if (!int.TryParse(input, out guess))
                     {
-                        //Change text color
-                        Console.ForegroundColor = ConsoleColor.Red;
-
-
-                        //Tell user its not a number
-                        Console.WriteLine("WHOPS! input is not a number, enter a number retard");
-
-                        //Reset text color
-                        Console.ResetColor();
-
+                        //print error message
+                        printColorMessage(ConsoleColor.Red, "please use an actual number");
                         //keep going
                         continue;
                     }
@@ -83,27 +56,13 @@ namespace NumberGuesser
                     //match guess to correct number
                     if (guess != correctNumber)
                     {
-                        //Change text color
-                        Console.ForegroundColor = ConsoleColor.Red;
-
-
-                        //Tell user its the wrong number
-                        Console.WriteLine("Wrong number, please try again");
-
-                        //Reset text color
-                        Console.ResetColor();
+                       //print error message
+                        printColorMessage(ConsoleColor.Red, "Wrong number, please try again");
                     }
                 }
 
-                //Change text color
-                Console.ForegroundColor = ConsoleColor.Yellow;
-
-
-                //tell user its the right number
-                Console.WriteLine("You are correct! GJDM MIRIN' HARD!");
-
-                //Reset text color
-                Console.ResetColor();
+                //print success message
+                printColorMessage(ConsoleColor.Yellow, "GJDM!! YOU GUESSED THE RIGHT NUMBER!");
 
                 // ask to play again
                 Console.WriteLine("Play again? [Y or N]");
@@ -124,6 +83,51 @@ namespace NumberGuesser
                     return;
                 }
             }
+        }
+        //Get and display app info 
+        static void GetAppInfo()
+        {
+            //Set app vars
+            string appname = "Number Guesser";
+            string appVersion = "1.0.0";
+            string appAuthor = "Vegar Fredriksen";
+
+            //Change text color
+            Console.ForegroundColor = ConsoleColor.Green;
+
+
+            //Write out app info
+            Console.WriteLine("{0}: Version {1} by {2}", appname, appVersion, appAuthor);
+
+            //Reset text color
+            Console.ResetColor();
+        }
+
+
+        // ask users name and greet
+        static void GreetUser()
+        {
+            //ask users name
+            Console.WriteLine("What is your name?");
+
+            //get user input
+            string inputName = Console.ReadLine();
+
+            Console.WriteLine("Hello {0}, Let's play a game...", inputName);
+        }
+
+        //Print color message
+        static void printColorMessage(ConsoleColor color, string message)
+        {
+            //Change text color
+            Console.ForegroundColor = color;
+
+
+            //Tell user its not a number
+            Console.WriteLine(message);
+
+            //Reset text color
+            Console.ResetColor();
         }
     }
 }
